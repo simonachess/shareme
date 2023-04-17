@@ -8,3 +8,4 @@
 
 ## Project deployed
 https://shareme-simlim.netlify.app
+https://shareme-green.vercel.app
