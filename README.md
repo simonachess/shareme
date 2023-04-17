@@ -7,4 +7,4 @@
 * Login with Google
 
 ## Project deployed
-https://shareme-app-sl.netlify.app
+https://shareme-simlim.netlify.app
