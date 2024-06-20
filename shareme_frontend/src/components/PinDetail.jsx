@@ -15,9 +15,8 @@ function PinDetail({ user }) {
   const [pinDetail, setPinDetail] = useState()
   const [comment, setComment] = useState('')
   const [addingComment, setAddingComment] = useState(false)
-
-    const fetchPinDetails = () => {
-    const query = pinDetailQuery(pinId);
+  const fetchPinDetails = () => {
+  const query = pinDetailQuery(pinId);
 
     if (query) {
       client.fetch(`${query}`).then((data) => {

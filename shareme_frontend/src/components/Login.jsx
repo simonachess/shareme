@@ -12,29 +12,24 @@ const Login = () => {
   const navigate = useNavigate()
 
   const createOrGetUser = async (response) => {
-    const decoded = jwt_decode(response.credential)
-    response.setHeader('Access-Control-Allow-Credentials', true)
-    response.setHeader('Access-Control-Allow-Origin', '*')
-    response.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-    response.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  )
-    localStorage.setItem('user', JSON.stringify(decoded))
-    const { name, sub, picture } = decoded
-
-    const doc = {
-      _id: sub,
-      _type: 'user',
-      userName: name,
-      image: picture
+    try {
+      const decoded = jwt_decode(response.credential); 
+      localStorage.setItem('user', JSON.stringify(decoded));
+      
+      const { name, sub, picture } = decoded;
+      const doc = {
+        _id: sub,
+        _type: 'user',
+        userName: name,
+        image: picture
+      };
+      
+      await client.createIfNotExists(doc);
+      navigate('/', { replace: true });
+    } catch (error) {
+      console.error('Error creating or getting user:', error);
     }
-
-    client.createIfNotExists(doc)
-      .then(() => {
-        navigate('/', { replace: true })
-      })
-  }
+  };
 
   return (
     <div className="flex justify-start items-center flex-col h-screen">
