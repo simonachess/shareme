@@ -38,21 +38,12 @@ const Login = () => {
 
   const createOrGetUser = async (response) => {
     try {
-      // Assuming `response` contains some data to decode
-      const decoded = jwt_decode(response.credential); // Example: Decode JWT token
-      response.setHeader('Access-Control-Allow-Credentials', true)
-      response.setHeader('Access-Control-Allow-Origin', '*')
-      response.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
-      response.setHeader(
-        'Access-Control-Allow-Headers',
-        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-      )
-      // Setting local storage with decoded user information
-      localStorage.setItem('user', JSON.stringify(decoded));
-      
-      // Extracting necessary properties from decoded JWT
+      const decoded = jwt_decode(response.credential);
       const { name, sub, picture } = decoded;
-      
+  
+      // Store user data in localStorage
+      localStorage.setItem('user', JSON.stringify(decoded));
+  
       // Example document structure for client.createIfNotExists
       const doc = {
         _id: sub,
@@ -60,11 +51,11 @@ const Login = () => {
         userName: name,
         image: picture
       };
-      
-      // Example of how to use client.createIfNotExists (adjust as per your client API)
+  
+      // Assuming client.createIfNotExists returns a promise
       await client.createIfNotExists(doc);
-      
-      // Navigating to '/' after successful creation
+  
+      // Navigate to '/' after successful creation or retrieval
       navigate('/', { replace: true });
     } catch (error) {
       console.error('Error creating or getting user:', error);
