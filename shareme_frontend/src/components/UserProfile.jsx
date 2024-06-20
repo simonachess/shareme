@@ -24,8 +24,12 @@ function UserProfile() {
 
   useEffect(() => {
     const query = userQuery(userId)
-    client.fetch(query).then((data) => {
-      setUser(data[0])
+    client.fetch(query)
+    .then((data) => {
+      setUser(data[0]);
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
     });
   }, [userId])
 
@@ -73,7 +77,7 @@ googleLogout()
             {user.userName}
           </h1>
           <div className="absolute top-0 z-1 right-0 p-2">
-            {userId === User.sub && (
+            {userId === user.sub && (
               <button
                 type="button"
                 className="bg-white p-2 rounded-full cursor-pointer outline-none shadow-md"
