@@ -114,7 +114,7 @@ function Pin({ pin }) {
             </div>
         )}
     </div>
-    <Link to={`user-profile/${postedBy?._id}`} className="flex gap-2 m-2 items-center">
+    <Link to={`/user-profile/${postedBy?._id}`} replace className="flex gap-2 m-2 items-center">
         <img
             className="w-8 h-8 rounded-full object-cover" alt="user-profile"
             src={postedBy?.image}
