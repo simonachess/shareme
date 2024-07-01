@@ -51,12 +51,12 @@ function UserProfile() {
 
   const logout = () => {
     localStorage.clear()
-googleLogout()
+    googleLogout()
     navigate('/login')
   }
 
   if (!user) return <Spinner message="Loading profile" />
-console.log(user)
+
   return (
     <div className="relative pb-2 h-full justify-center items-center">
       <div className="flex flex-col pb-5">
